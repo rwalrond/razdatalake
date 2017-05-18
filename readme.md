@@ -1,3 +1,7 @@
+# R Azure Data Lake REST API Wrapper
+
+A simple wrapper around the REST API for Azure's Data Lake. Simplifies authentication, downloading, and `PUT`ing files back into the Data Lake.  
+
 # Example Usage
 
 ```{R}
