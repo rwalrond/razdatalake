@@ -5,7 +5,7 @@ A simple wrapper around the REST API for Azure's Data Lake. Simplifies authentic
 # Installation
 
 ```{R}
-devtools::install_github("zerogravitylabs/razdatalake", auth_token = "[YOUR GITHUB AUTH TOKEN]")
+devtools::install_github("zerogravitylabs/razdatalake")
 ```
 
 # Example Usage
