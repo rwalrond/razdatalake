@@ -140,5 +140,6 @@ downloadFiles <- function(datalake, folder, token) {
   xs <- lapply(fileList, function(filename){
     jsonlite::stream_in(textConnection(getFile(datalake, folder, filename, token)))
   })
-  data.table::rbindlist(xs)
+  ##### this line crashes for me, I prefer the format as is
+  ##data.table::rbindlist(xs)
 }
