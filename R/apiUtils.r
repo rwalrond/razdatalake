@@ -99,15 +99,16 @@ getFile <- function(datalake, folder, filename, token) {
 #' @param datalake String the data lake name.
 #' @param folder String the subfolder name.
 #' @param filename String the file name.
+#' @param contents string contents to save
 #' @param token String the Bearer token.
 #'
 #' @return List the `httr` response.
-putFile <- function(datalake, folder, filename, token) {
+putFile <- function(datalake, folder, filename, token, contents = NULL) {
 
   url <- paste0("https://", datalake, ".azuredatalakestore.net/webhdfs/v1/", folder, "/", filename, "?op=CREATE&write=true")
   res <- httr::PUT(
     url,
-    body = httr::upload_file(filename),
+    body = ifelse(is.null(contents), httr::upload_file(filename), contents),
     config = httr::add_headers(
       Authorization = paste0("Bearer ", token),
       `Transfer-Encoding` = "chunked"
