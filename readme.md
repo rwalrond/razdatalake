@@ -5,7 +5,7 @@ A simple wrapper around the REST API for Azure's Data Lake. Simplifies authentic
 # Installation
 
 ```{R}
-devtools::install_github("zerogravitylabs/razdatalake")
+devtools::install_github("rwalrond/razdatalake")
 ```
 
 # Example Usage
@@ -30,4 +30,6 @@ dt <- downloadFiles("DATA LAKE NAME", "FOLDER NAME", token)
 # Persist in Azure Data Lake ----
 jsonlite::stream_out(dt, file("dt.json"))
 putFile("DATA LAKE NAME", "NEW FOLDER NAME", "dt.json", token)
+## Create file with contents
+putFile("DATA LAKE NAME", "NEW FOLDER NAME", "dtContents.json", token, contents=jsonlite::toJSON(dt))
 ```
