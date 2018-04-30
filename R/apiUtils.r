@@ -105,7 +105,7 @@ getFile <- function(datalake, folder, filename, token) {
 #' @return List the `httr` response.
 putFile <- function(datalake, folder, filename, token, contents = NULL) {
 
-  url <- paste0("https://", datalake, ".azuredatalakestore.net/webhdfs/v1/", folder, "/", filename, "?op=CREATE&write=true")
+  url <- paste0("https://", datalake, ".azuredatalakestore.net/webhdfs/v1/", folder, "/", filename, "?op=CREATE&write=true&overwrite=true")
   res <- httr::PUT(
     url,
     body = ifelse(is.null(contents), httr::upload_file(filename), contents),
@@ -134,10 +134,13 @@ putFile <- function(datalake, folder, filename, token, contents = NULL) {
 #' @param datalake String the data lake name.
 #' @param folder String the subfolder name.
 #' @param token String the Bearer token.
+#' @param fileList object a filtered list to download.
 #'
 #' @return data.table
-downloadFiles <- function(datalake, folder, token) {
-  fileList <- listFiles(datalake, folder, token)
+downloadFiles <- function(datalake, folder, token, fileList = NULL) {
+  if (is.null(fileList)) {
+    fileList <- listFiles(datalake, folder, token)
+  }
   xs <- lapply(fileList, function(filename){
     jsonlite::stream_in(textConnection(getFile(datalake, folder, filename, token)))
   })
